@@ -173,8 +173,8 @@ export default defineComponent({
 			// Tomorrow 05:00 PM
 			const tomorrowTime = moment().add(1, 'days').hour(17)
 			// Saturday 05:00 PM (or hidden)
-			const thisWeekendTime = (currentDateTime.day() !== 6 && currentDateTime.day() !== 0)
-				? moment().day(6).hour(17)
+			const thisWeekendTime = (currentDateTime.day() !== 5 && currentDateTime.day() !== 0)
+				? moment().day(5).hour(17)
 				: null
 			// Next Monday 05:00 PM
 			const nextWeekTime = moment().add(1, 'weeks').day(1).hour(17)
@@ -194,7 +194,7 @@ export default defineComponent({
 				{
 					key: 'thisWeekend',
 					timestamp: this.getTimestamp(thisWeekendTime),
-					label: t('deck', 'This weekend – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd LT') }),
+					label: t('deck', 'Friday – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd LT') }),
 					ariaLabel: t('deck', 'Set due date for this weekend'),
 				},
 				{
