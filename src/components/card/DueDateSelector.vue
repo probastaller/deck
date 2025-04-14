@@ -182,25 +182,25 @@ export default defineComponent({
 				{
 					key: 'laterToday',
 					timestamp: this.getTimestamp(laterTodayTime),
-					label: t('deck', 'Later today – {timeLocale}', { timeLocale: laterTodayTime?.format('LT') }),
+					label: t('deck', 'Later today – {timeLocale}', { timeLocale: laterTodayTime?.format('DD LT') }),
 					ariaLabel: t('deck', 'Set due date for later today'),
 				},
 				{
 					key: 'tomorrow',
 					timestamp: this.getTimestamp(tomorrowTime),
-					label: t('deck', 'Tomorrow – {timeLocale}', { timeLocale: tomorrowTime?.format('ddd LT') }),
+					label: t('deck', 'Tomorrow – {timeLocale}', { timeLocale: tomorrowTime?.format('ddd DD LT') }),
 					ariaLabel: t('deck', 'Set due date for tomorrow'),
 				},
 				{
 					key: 'thisWeekend',
 					timestamp: this.getTimestamp(thisWeekendTime),
-					label: t('deck', 'Friday – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd LT') }),
+					label: t('deck', 'Friday – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd DD LT') }),
 					ariaLabel: t('deck', 'Set due date for this weekend'),
 				},
 				{
 					key: 'nextWeek',
 					timestamp: this.getTimestamp(nextWeekTime),
-					label: t('deck', 'Next week – {timeLocale}', { timeLocale: nextWeekTime?.format('ddd LT') }),
+					label: t('deck', 'Next week – {timeLocale}', { timeLocale: nextWeekTime?.format('ddd DD LT') }),
 					ariaLabel: t('deck', 'Set due date for next week'),
 				},
 			].filter(option => option.timestamp !== null)
