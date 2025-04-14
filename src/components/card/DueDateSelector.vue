@@ -166,41 +166,41 @@ export default defineComponent({
 
 		reminderOptions() {
 			const currentDateTime = moment()
-			// Same day 18:00 PM (or hidden)
-			const laterTodayTime = (currentDateTime.hour() < 18)
-				? moment().hour(18)
+			// Same day 17:00 PM (or hidden)
+			const laterTodayTime = (currentDateTime.hour() < 17)
+				? moment().hour(17)
 				: null
-			// Tomorrow 08:00 AM
-			const tomorrowTime = moment().add(1, 'days').hour(8)
-			// Saturday 08:00 AM (or hidden)
-			const thisWeekendTime = (currentDateTime.day() !== 6 && currentDateTime.day() !== 0)
-				? moment().day(6).hour(8)
+			// Tomorrow 05:00 PM
+			const tomorrowTime = moment().add(1, 'days').hour(17)
+			// Saturday 05:00 PM (or hidden)
+			const thisWeekendTime = (currentDateTime.day() !== 5 && currentDateTime.day() !== 0)
+				? moment().day(5).hour(17)
 				: null
-			// Next Monday 08:00 AM
-			const nextWeekTime = moment().add(1, 'weeks').day(1).hour(8)
+			// Next Monday 05:00 PM
+			const nextWeekTime = moment().add(1, 'weeks').day(1).hour(17)
 			return [
 				{
 					key: 'laterToday',
 					timestamp: this.getTimestamp(laterTodayTime),
-					label: t('deck', 'Later today – {timeLocale}', { timeLocale: laterTodayTime?.format('LT') }),
+					label: t('deck', 'Later today – {timeLocale}', { timeLocale: laterTodayTime?.format('DD LT') }),
 					ariaLabel: t('deck', 'Set due date for later today'),
 				},
 				{
 					key: 'tomorrow',
 					timestamp: this.getTimestamp(tomorrowTime),
-					label: t('deck', 'Tomorrow – {timeLocale}', { timeLocale: tomorrowTime?.format('ddd LT') }),
+					label: t('deck', 'Tomorrow – {timeLocale}', { timeLocale: tomorrowTime?.format('ddd DD LT') }),
 					ariaLabel: t('deck', 'Set due date for tomorrow'),
 				},
 				{
 					key: 'thisWeekend',
 					timestamp: this.getTimestamp(thisWeekendTime),
-					label: t('deck', 'This weekend – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd LT') }),
+					label: t('deck', 'Friday – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd DD LT') }),
 					ariaLabel: t('deck', 'Set due date for this weekend'),
 				},
 				{
 					key: 'nextWeek',
 					timestamp: this.getTimestamp(nextWeekTime),
-					label: t('deck', 'Next week – {timeLocale}', { timeLocale: nextWeekTime?.format('ddd LT') }),
+					label: t('deck', 'Next week – {timeLocale}', { timeLocale: nextWeekTime?.format('ddd DD LT') }),
 					ariaLabel: t('deck', 'Set due date for next week'),
 				},
 			].filter(option => option.timestamp !== null)
@@ -212,7 +212,7 @@ export default defineComponent({
 				// We initialize empty dates with a time once clicked to make picking a day easier
 				const now = new Date()
 				now.setDate(now.getDate() + 1)
-				now.setHours(8)
+				now.setHours(17)
 				now.setMinutes(0)
 				now.setMilliseconds(0)
 				this.duedate = now
