@@ -165,47 +165,29 @@ export default defineComponent({
 		},
 
 		reminderOptions() {
-			const currentDateTime = moment()
-			// Same day 18:00 PM (or hidden)
-			const laterTodayTime = (currentDateTime.hour() < 18)
-				? moment().hour(18)
-				: null
-			// Tomorrow 08:00 AM
-			const tomorrowTime = moment().add(1, 'days').hour(8)
-			// Saturday 08:00 AM (or hidden)
-			const thisWeekendTime = (currentDateTime.day() !== 6 && currentDateTime.day() !== 0)
-				? moment().day(6).hour(8)
-				: null
-			// Next Monday 08:00 AM
-			const nextWeekTime = moment().add(1, 'weeks').day(1).hour(8)
-			return [
-				{
-					key: 'laterToday',
-					timestamp: this.getTimestamp(laterTodayTime),
-					label: t('deck', 'Later today – {timeLocale}', { timeLocale: laterTodayTime?.format('LT') }),
-					ariaLabel: t('deck', 'Set due date for later today'),
-				},
-				{
-					key: 'tomorrow',
-					timestamp: this.getTimestamp(tomorrowTime),
-					label: t('deck', 'Tomorrow – {timeLocale}', { timeLocale: tomorrowTime?.format('ddd LT') }),
-					ariaLabel: t('deck', 'Set due date for tomorrow'),
-				},
-				{
-					key: 'thisWeekend',
-					timestamp: this.getTimestamp(thisWeekendTime),
-					label: t('deck', 'This weekend – {timeLocale}', { timeLocale: thisWeekendTime?.format('ddd LT') }),
-					ariaLabel: t('deck', 'Set due date for this weekend'),
-				},
-				{
-					key: 'nextWeek',
-					timestamp: this.getTimestamp(nextWeekTime),
-					label: t('deck', 'Next week – {timeLocale}', { timeLocale: nextWeekTime?.format('ddd LT') }),
-					ariaLabel: t('deck', 'Set due date for next week'),
-				},
-			].filter(option => option.timestamp !== null)
-		},
-	},
+	const options = []
+	const start = moment().startOf('day')
+
+	for (let i = 0; i < 15; i++) {
+		const day = start.clone().add(i, 'days')
+
+		// Only Monday (1) to Friday (5)
+		if (day.day() >= 1 && day.day() <= 5) {
+			const dateAtFive = day.clone().hour(17).minute(0).second(0).millisecond(0)
+
+			options.push({
+				key: `weekday-${i}`,
+				timestamp: dateAtFive.toDate(),
+				label: dateAtFive.format('ddd DD/MM'),
+				ariaLabel: t('deck', 'Set due date for {date}', {
+					date: dateAtFive.format('dddd, DD/MM'),
+				}),
+			})
+		}
+	}
+
+	return options
+},
 	methods: {
 		initDate() {
 			if (this.duedate === null) {
